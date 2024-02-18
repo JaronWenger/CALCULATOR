@@ -82,13 +82,14 @@ body {
 
 
 #calculator-display {
-    margin-bottom: 25px;
-    width: 100%;
+    margin-bottom: 30px;
+    margin-right: 20px;
+    width: 68%;
     height: 80px; /* Increased height */
     border-radius: 8px;
     background-color: #555;
     color: #fff;
-    font-size: 28px; /* Increased font size */
+    font-size: 60px; /* Increased font size */
     text-align: right;
     padding: 12px; /* Increased padding for better appearance */
     box-sizing: border-box;
