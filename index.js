@@ -165,6 +165,7 @@ $(".digit-button").click(function () {
         document.getElementById("calculator-display").value = input
         }
     } else if (ball.length > 0 ) {
+
         if (negate) {
             if (ball[0] === "-0") {
                 ball = [-input]
@@ -174,10 +175,15 @@ $(".digit-button").click(function () {
             ball = [part]
             document.getElementById("calculator-display").value = ball[0]
             }
-        } else {    
+        } else {
+            if (ball[0] === 0){
+                ball = [input]
+                document.getElementById("calculator-display").value = ball[0]
+            } else {
         var part = ball[0] + input
         ball = [part]
         document.getElementById("calculator-display").value = part
+            }
         }
     }
 });
@@ -313,6 +319,47 @@ $("#percent").click(function(){
         document.getElementById("calculator-display").value = ball[0]
     }
 })
+
+
+
+$("#decimal").click(function(){
+    
+    if (oper[0] === "fin") {
+        play = ["0."]
+        oper = []
+
+        document.getElementById("calculator-display").value = play[0]
+        return
+    }
+
+    if (document.getElementById("calculator-display").value.includes('.')) {
+        return; // Do nothing if a decimal point is already present
+        
+    }else if (play[0] === "Error"){
+
+    } else if (play.length === 0){
+        play = ["0."]
+        document.getElementById("calculator-display").value = play[0]
+    } else if (play[0] === "-0") {
+        play = ["-0."]
+        document.getElementById("calculator-display").value = play[0]
+    }else if (play[0] === 0) {
+        play = ["0."]
+        document.getElementById("calculator-display").value = play[0]
+    } else if (play.length > 0 && oper.length === 0) {
+        var part = play[0] + "."
+        play = [part]
+        document.getElementById("calculator-display").value = play[0]
+    } else if (ball.length === 0){
+
+        ball = ["0."]
+        document.getElementById("calculator-display").value = ball[0]
+    } else if (ball.length > 0 ) {
+        var part = ball[0] + "."
+        ball = [part]
+        document.getElementById("calculator-display").value = ball[0]
+    }
+})  
 
 
 
