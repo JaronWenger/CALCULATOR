@@ -1,8 +1,3 @@
-var nums = [];
-var numbers = [];
-var operations = [];
-var concatenatedNumber = null;
-
 var answer = 0;
 
 var play = []
@@ -11,6 +6,7 @@ var display = $("#calculator-display");
 var oper = []
 var repeat = []
 var negate = false
+var bug = []
 document.getElementById("calculator-display").value = 0
 
 //////CLICKING ANIMATION ON BUTTONS
@@ -57,6 +53,7 @@ document.querySelector('.button-container').addEventListener('mouseup', function
         // Check if the button's id is in the oper array
         var buttonId = event.target.id;
         if (buttonId === "multiply" || buttonId === "minus" || buttonId === "divide" || buttonId === "plus"){
+        bug = [1]
         oper = [buttonId]
         negate = false
         }
@@ -101,6 +98,7 @@ $("#AC").click(function(){
     negate = false
     document.getElementById("calculator-display").value = 0
     repeat = []
+    bug = []
 })
 
 
@@ -194,6 +192,10 @@ $("#equals").click(function(){
     // concatenatedNumber = Number(nums.join(''));
     // numbers.push(concatenatedNumber);
     negate = false
+
+    if (document.getElementById("calculator-display").value === "0" && repeat.length === 0 && ball.length === 0) {
+        return
+    } else {
     
     var answer = calculate()
     if (answer === "Error") {
@@ -205,11 +207,14 @@ $("#equals").click(function(){
     document.getElementById("calculator-display").value = answer
     play = [answer]
 
+    if (ball.length > 0) {
     repeat = [ball[0], oper[0]]
+    }
 
     ball = []
     oper = ["fin"]
     }
+}
 
 });
 
@@ -329,82 +334,54 @@ $("#decimal").click(function(){
         oper = []
 
         document.getElementById("calculator-display").value = play[0]
+
         return
     }
 
+
+
     if (document.getElementById("calculator-display").value.includes('.')) {
+
+        if (bug.length === 0) {
         return; // Do nothing if a decimal point is already present
+        } else {
+            ball = ["0."]
+            document.getElementById("calculator-display").value = ball[0]
+            bug = []
+        }
+       
+
+
         
     }else if (play[0] === "Error"){
 
+
     } else if (play.length === 0){
+
         play = ["0."]
         document.getElementById("calculator-display").value = play[0]
     } else if (play[0] === "-0") {
+
         play = ["-0."]
         document.getElementById("calculator-display").value = play[0]
     }else if (play[0] === 0) {
+
         play = ["0."]
         document.getElementById("calculator-display").value = play[0]
     } else if (play.length > 0 && oper.length === 0) {
+
         var part = play[0] + "."
         play = [part]
         document.getElementById("calculator-display").value = play[0]
     } else if (ball.length === 0){
 
+
         ball = ["0."]
         document.getElementById("calculator-display").value = ball[0]
     } else if (ball.length > 0 ) {
+
         var part = ball[0] + "."
         ball = [part]
         document.getElementById("calculator-display").value = ball[0]
     }
 })  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $("#multiply").click(function(){
-
-//     handleOperation("*");
-// });
-// $("#divide").click(function(){
-//     oper = ["divide"]
-//     handleOperation("/");
-// });
-// $("#minus").click(function(){
-//     oper = ["minus"]
-//     handleOperation("-");
-// });
-// $("#plus").click(function(){
-//     oper = ["plus"]
-//     handleOperation("+");
-// });
-
-
-
-
-// function updateDisplay(updateImmediately) {
-//     if (updateImmediately) {
-//         var currentInput = nums.length > 0 ? nums.join('') : operations.join('');
-//         display.val(currentInput);
-//     }
-// }
-
-
-// function handleOperation(operation) {
-//     concatenatedNumber = Number(nums.join(''));
-//     numbers.push(concatenatedNumber);
-//     nums = [];
-//     operations.push(operation);
-// }
