@@ -43,6 +43,9 @@ document.querySelector('.button-container').addEventListener('mousedown', functi
 
 
 
+        } else if (event.target.classList.contains('solution')) {
+            event.target.classList.add('clicked-operation-instant');
+            event.target.classList.add('clicked-text-instant');
         } else {
             event.target.classList.add('clicked');
         }
@@ -97,6 +100,7 @@ $("#AC").click(function(){
     oper = []
     negate = false
     document.getElementById("calculator-display").value = 0
+    repeat = []
 })
 
 
@@ -106,19 +110,23 @@ $(".digit-button").click(function () {
     var input = $(this).text();
 
     ///concatination
-    if (oper[0] === "fin"){
+    if (play[0] === "Error") {
+        play = [input]
+        document.getElementById("calculator-display").value = play[0]
+    } else if (oper[0] === "fin"){
         if (negate) {
             if (play[0] === "-0"){
                 play = [-input]
+                oper = []
                 document.getElementById("calculator-display").value = play[0]
             } else {
-                var part = play[0] + input
-                play = [part]
+                play = [input]
+                oper = []
                 document.getElementById("calculator-display").value = play[0]
             }
         } else {
-            var part = play[0] + input
-        play = [part]
+        play = [input]
+        oper = []
         document.getElementById("calculator-display").value = play[0]
         }
     } else if (play.length === 0){
@@ -196,8 +204,8 @@ $("#equals").click(function(){
     ball = []
     oper = ["fin"]
     }
-});
 
+});
 
 function calculate() {
     if (play[0] === "Error") {
@@ -232,9 +240,13 @@ function calculate() {
 
 
 
-
+////NEGATIONS
 $("#plusMinus").click(function(){
-    if (oper[0] === "fin"){
+    if (play[0] === "Error"){
+        play = ["-0"]
+        negate = true
+        document.getElementById("calculator-display").value = play[0]
+    } else if (oper[0] === "fin"){
         if (play[0] === 0){
             play = ["-0"]
             negate = true
@@ -278,6 +290,29 @@ $("#plusMinus").click(function(){
 })
 
 
+/////PERCENTAGES
+$("#percent").click(function(){
+    if (play[0] === "Error"){
+
+    } else if (play.length === 0){
+
+    } else if (play[0] === "-0") {
+        play = [0]
+        negate = false
+        document.getElementById("calculator-display").value = play[0]
+    }else if (play[0] === 0) {
+
+    } else if (play.length > 0 && oper.length === 0) {
+        play = [play[0] / 100]
+        document.getElementById("calculator-display").value = play[0]
+    } else if (ball.length === 0){
+            play = [play[0] / 100]
+            document.getElementById("calculator-display").value = play[0]
+    } else if (ball.length > 0 ) {
+        ball = [ball[0] / 100]
+        document.getElementById("calculator-display").value = ball[0]
+    }
+})
 
 
 

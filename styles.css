@@ -63,6 +63,9 @@ body {
 .operation-dot {
     background-color: rgb(236, 154, 0);
 }
+.solution {
+    background-color: rgb(236, 154, 0);
+}
 
 .clicked-operation {
     background-color: #fff !important;
